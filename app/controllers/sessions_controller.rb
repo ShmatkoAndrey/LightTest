@@ -19,16 +19,8 @@ class SessionsController < ApplicationController
     render json: { current_user: nil }
   end
 
-  def current_user
-    if session[:user_id].nil? && cookies[:auth_token] && !cookies[:auth_token].empty?
-      user = User.where(auth_token: cookies[:auth_token])
-      session[:user_id] = user.first.id unless user.nil?
-      @current_user = user.first
-    else
-      user_find = User.where(id: session[:user_id]).first # if User.find(session[:user_id]) : Couldn't find User with 'id'=1)
-      @current_user ||= user_find unless user_find.nil?
-    end
-    render json: { current_user: @current_user }
+  def get_current_user
+    render json: { current_user: current_user }
   end
 
 end

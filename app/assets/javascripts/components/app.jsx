@@ -4,6 +4,7 @@ var App = React.createClass({
             <div id="messages">
                 App
                 { this.props.current_user != 'guest' ? <SendForm /> : <Login changeCurrentUser = { (current_user) => { this.props.changeGuest(current_user) } } /> }
+                <PostList current_user = { this.props.current_user } />
             </div>
         )
     }
@@ -13,10 +14,10 @@ var SendForm = React.createClass({
     getInitialState: function() { return {content: '' } },
     handleSubmit(e) {
         e.preventDefault();
-        var data = { content: this.state.content.trim()};
+        var data = { content: this.state.content.trim() };
         if (data.content) {
             $.ajax({
-                url: '/posts', dataType: 'json', type: 'POST', data: data,
+                url: '/posts', dataType: 'json', type: 'POST', data: { post: data },
                 success: function (data) {
                     if (data.errors) { console.log(data.errors); }
                     this.setState({ content: '' });

@@ -1,0 +1,27 @@
+#posts {
+  overflow: auto;
+  height: 400px;
+}
+
+.post {
+  white-space: pre-wrap;
+  padding: 30px;
+  margin-bottom: 10px;
+  color: inherit;
+  background-color: #eeeeee;
+  word-wrap: break-word;
+
+  .author-post {
+    display: inline-block;
+    color: #550f11
+  }
+  .delete-post {
+    display: inline-block;
+    color: #730E15;
+    float: right;
+    position: relative;
+    top: -25px;
+    right: -20px;
+    cursor: pointer;
+  }
+}
