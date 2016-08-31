@@ -1,0 +1,23 @@
+#fb-login {
+  display: inline-block;
+
+  background-image: image-url('social/fb.png');
+  width: 128px;
+  height: 128px;
+  background-position:center center;
+  background-repeat:no-repeat;
+  background-size:cover;
+}
+
+#guest-login {
+  display: inline-block;
+
+  background-image: image-url('social/guest.png');
+  width: 128px;
+  height: 128px;
+  border-radius: 22px;
+  background-position:center center;
+  background-repeat:no-repeat;
+  background-size:cover;
+}
+
