@@ -5,12 +5,10 @@ class SessionsController < ApplicationController
       render json: {error: params[:social][:error]}
     else
       @user = User.find_for_auth(params[:provider], params[:social])
-
       session[:user_id] = @user.id
       token = Random.new_seed
       cookies[:auth_token] = {value: token, expires: 1.hour.from_now}
       @user.update(auth_token: token)
-
       render json: {current_user: @user}
     end
   end
@@ -22,7 +20,6 @@ class SessionsController < ApplicationController
   end
 
   def current_user
-
     if session[:user_id].nil? && cookies[:auth_token] && !cookies[:auth_token].empty?
       user = User.where(auth_token: cookies[:auth_token])
       session[:user_id] = user.first.id unless user.nil?
@@ -31,7 +28,6 @@ class SessionsController < ApplicationController
       user_find = User.where(id: session[:user_id]).first # if User.find(session[:user_id]) : Couldn't find User with 'id'=1)
       @current_user ||= user_find unless user_find.nil?
     end
-
     render json: { current_user: @current_user }
   end
 

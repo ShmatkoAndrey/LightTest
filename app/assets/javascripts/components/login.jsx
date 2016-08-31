@@ -23,7 +23,6 @@ var Login = React.createClass({
             });
         }
     },
-
     render() {
         return (
             <div id="login">
