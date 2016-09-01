@@ -2,7 +2,6 @@ var App = React.createClass({
     render() {
         return (
             <div id="messages">
-                App
                 { this.props.current_user != 'guest' ? <SendForm /> : <Login changeCurrentUser = { (current_user) => { this.props.changeGuest(current_user) } } /> }
                 <PostList current_user = { this.props.current_user } />
             </div>
