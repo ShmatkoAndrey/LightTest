@@ -56,30 +56,16 @@ var PostList = React.createClass({
 
 var Post = React.createClass({
     getInitialState() { return { comments: null } },
-    nextComm(com) {
-        if(com.comments) {
-            com.comments.map(function(cmnt) {
-                this.setState({ comments: this.state.comments += this.nextComm(cmnt) })
-            }.bind(this));
-        }
-        else this.setState({ comments: this.state.comments += <Comment comment={ com } current_user={this.props.current_user} /> })
-    },
     render: function() {
         if(this.props.current_user != null && this.props.current_user.id == this.props.user.id)
             var delete_button = <div className="delete-post" onClick={this.handleDelete}>x</div>;
-
-       this.props.comments.map(function(comment) {
-            this.nextComm(comment);
-        }.bind(this));
         return (
             <div className="post">
                 <div className="author-post"> {this.props.user.name} </div>
                 { delete_button }
                 <br />
                 { this.props.post.content }
-                <div className = "comments">
-                    { this.state.comments }
-                </div>
+                <Comments comments = { this.props.comments } current_user = { this.props.current_user } />
             </div>
         );
     },
@@ -91,6 +77,29 @@ var Post = React.createClass({
     }
 });
 
+var Comments = React.createClass({
+    render() {
+        var commentsNode = this.props.comments.map(function(comment) {
+            if(comment.comments) {
+                return (
+                    <div >
+                        <Comment comment = { comment } current_user = { this.props.current_user } />
+                        <Comments comments = { comment.comments } current_user = { this.props.current_user } />
+                    </div>
+                )
+            } else {
+                return <Comment comment = { comment } current_user = { this.props.current_user } />
+            }
+        }.bind(this));
+
+        return (
+            <div className = "comments">
+                { commentsNode }
+            </div>
+        )
+    }
+});
+
 var Comment = React.createClass({
     handleDelete() {
 
@@ -99,7 +108,6 @@ var Comment = React.createClass({
         var comment = this.props.comment;
         if(this.props.current_user != null && this.props.current_user.id == comment.user.id)
             var delete_button = <div className="delete-comment" onClick={this.handleDelete}>x</div>;
-
         return (
             <div className = "comment">
                 <div className="author-comment"> {comment.user.name} </div>
