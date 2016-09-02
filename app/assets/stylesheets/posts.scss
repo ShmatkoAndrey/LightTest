@@ -1,6 +1,6 @@
 #posts {
   overflow: auto;
-  height: 400px;
+  height: 600px;
 }
 
 .post {
@@ -8,7 +8,7 @@
   padding: 30px;
   margin-bottom: 10px;
   color: inherit;
-  background-color: #eeeeee;
+  //background-color: #eeeeee;
   word-wrap: break-word;
 
   .author-post {
@@ -16,6 +16,25 @@
     color: #550f11
   }
   .delete-post {
+    display: inline-block;
+    color: #730E15;
+    float: right;
+    position: relative;
+    top: -25px;
+    right: -20px;
+    cursor: pointer;
+  }
+}
+
+.comment {
+  padding: 10px 10px 10px 25px;
+  border: 1px solid grey;
+  margin: 5px;
+  .author-comment {
+    display: inline-block;
+    color: #115524
+  }
+  .delete-comment {
     display: inline-block;
     color: #730E15;
     float: right;

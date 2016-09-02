@@ -11,4 +11,8 @@ class User < ApplicationRecord
     @user
   end
 
+  def serialize
+    { id: self.id, name: self.name }
+  end
+
 end

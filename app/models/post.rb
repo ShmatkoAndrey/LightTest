@@ -16,10 +16,12 @@ class Post < ApplicationRecord
   def next_comment(comment)
     cms = comment.comments
     if cms.empty?
-      puts "#{comment.id}".red
-      comment.as_json
+      cmnt = comment.as_json
+      cmnt['user'] = comment.user.serialize
+      cmnt
     else
        cmnt = comment.as_json
+       cmnt['user'] = comment.user.serialize
        cmnt['comments'] = []
        cms.each do |c|
          cmnt['comments'] << next_comment(c).as_json
