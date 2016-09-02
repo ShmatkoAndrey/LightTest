@@ -1,7 +1,7 @@
 var Login = React.createClass({
     FBlogin() {
         FB.init({
-            appId: '1997533793805209',
+            appId:  '1762708720670400', //'1997533793805209',
             version: 'v2.5'
         });
         FB.getLoginStatus(function (response) {
