@@ -1,4 +1,9 @@
+.postForm > textarea:nth-child(1), #submitPost{
+  width: 100%;
+}
+
 #posts {
+  margin-top: 20px;
   overflow: auto;
   height: 600px;
 }
@@ -37,8 +42,8 @@
   .delete-comment {
     display: inline-block;
     color: #730E15;
-    float: right;
-    position: relative;
+    //float: right;
+    //position: relative;
     top: -25px;
     right: -20px;
     cursor: pointer;
@@ -46,5 +51,14 @@
 }
 
 .comments {
-  margin: 10px 10px 10px 25px;
+  margin: 10px 0 10px 25px;
+}
+
+.answer {
+  color: deepskyblue;
+  cursor: pointer;
+}
+
+.sendCommentArea {
+  width: 100%;
 }

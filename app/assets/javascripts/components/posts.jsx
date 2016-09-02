@@ -44,7 +44,7 @@ var PostList = React.createClass({
     },
     render: function() {
         var postsNode = this.state.posts.map(function(post) {
-            return <Post post = { post.post } user = { post.user } comments = { post.comments } current_user = {this.props.current_user}> </Post>
+            return <Post key = { post.post.id } post = { post } current_user = {this.props.current_user}> </Post>
         }.bind(this));
         return (
             <div onScroll={this.scrollPosts} ref="posts_box" id="posts" className="posts">
@@ -55,66 +55,58 @@ var PostList = React.createClass({
 });
 
 var Post = React.createClass({
-    getInitialState() { return { comments: null } },
+    getInitialState() {
+        this.webSocket();
+        return { comments: this.props.post.comments, answer: false }
+    },
+    addComment(arr, comment) {
+        if(comment.post_id != null) return arr.concat([comment]);
+        else {
+            arr.forEach(function (e, i) {
+                if(e.id.toString() == comment.comment_id.toString()) {
+                    if(e.comments) {
+                        e.comments = e.comments.concat([comment]);
+                    }
+                    else e['comments'] = [comment];
+                }
+                else if (e.comments) {
+                    arr[find_n(arr, e.id)] = this.addComment(e.comments, comment);
+                }
+            }.bind(this));
+            return arr;
+        }
+        function find_n(arr, id) {
+            arr.forEach(function(e, i){
+                if(e.id == id) return i;
+            })
+        }
+    },
+    webSocket: function() {
+        var faye = new Faye.Client('http://socketmiamitalks.herokuapp.com/faye');
+        faye.subscribe("/lighttest/post/"+this.props.post.post.id+"/comments/create", function(data) {
+            this.setState({comments: this.addComment(this.state.comments, data.comment) });
+        }.bind(this));
+    },
+    handleAnswer() { this.setState( { answer: !this.state.answer } ) },
     render: function() {
-        if(this.props.current_user != null && this.props.current_user.id == this.props.user.id)
+        if(this.props.current_user != null && this.props.current_user.id == this.props.post.user.id)
             var delete_button = <div className="delete-post" onClick={this.handleDelete}>x</div>;
         return (
             <div className="post">
-                <div className="author-post"> {this.props.user.name} </div>
+                <div className="author-post"> {this.props.post.user.name} </div>
                 { delete_button }
                 <br />
-                { this.props.post.content }
-                <Comments comments = { this.props.comments } current_user = { this.props.current_user } />
+                { this.props.post.post.content }
+                <div className="answer" onClick = { this.handleAnswer }> { this.state.answer ? 'Hide' : 'Answer' } </div>
+                { this.state.answer ? <SendComment parrent_post = { this.props.post.post }  callbackAnswer = { this.handleAnswer } /> : '' }
+                <Comments comments = { this.state.comments } current_user = { this.props.current_user } />
             </div>
         );
     },
     handleDelete: function() {
         $.ajax({
-            url: '/posts/' + this.props.post.id, dataType: 'json', type: 'DELETE',
+            url: '/posts/' + this.props.post.post.id, dataType: 'json', type: 'DELETE',
             error: function(xhr, status, err) { console.error(status, err.toString()); }.bind(this)
         });
-    }
-});
-
-var Comments = React.createClass({
-    render() {
-        var commentsNode = this.props.comments.map(function(comment) {
-            if(comment.comments) {
-                return (
-                    <div >
-                        <Comment comment = { comment } current_user = { this.props.current_user } />
-                        <Comments comments = { comment.comments } current_user = { this.props.current_user } />
-                    </div>
-                )
-            } else {
-                return <Comment comment = { comment } current_user = { this.props.current_user } />
-            }
-        }.bind(this));
-
-        return (
-            <div className = "comments">
-                { commentsNode }
-            </div>
-        )
-    }
-});
-
-var Comment = React.createClass({
-    handleDelete() {
-
-    },
-    render() {
-        var comment = this.props.comment;
-        if(this.props.current_user != null && this.props.current_user.id == comment.user.id)
-            var delete_button = <div className="delete-comment" onClick={this.handleDelete}>x</div>;
-        return (
-            <div className = "comment">
-                <div className="author-comment"> {comment.user.name} </div>
-                { delete_button }
-                <br />
-                { comment.content }
-            </div>
-        )
     }
 });

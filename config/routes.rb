@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   get 'sessions/current_user' => 'sessions#get_current_user'
 
   resources :posts
+  resources :comments
 end

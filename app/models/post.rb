@@ -5,7 +5,7 @@ class Post < ApplicationRecord
 
   def find_comments # проходит по всем комментам поста и рекурсивно возвращает массив json деревьев комментов
     @comments = []
-    self.comments.reverse.each do |comment|
+    self.comments.each do |comment|
       @comments << next_comment(comment)
     end
     @comments
