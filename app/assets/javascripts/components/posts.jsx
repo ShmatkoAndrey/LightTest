@@ -57,7 +57,7 @@ var PostList = React.createClass({
 var Post = React.createClass({
     getInitialState() {
         this.webSocket();
-        return { comments: this.props.post.comments || [], answer: false }
+        return { comments: this.props.post.comments || [], answer: false, show_comments: true }
     },
     addComment(arr, comment, add) {
         if(add && comment.post_id != null) return arr.concat([comment]);
@@ -92,18 +92,21 @@ var Post = React.createClass({
         }.bind(this));
     },
     handleAnswer() { this.setState( { answer: !this.state.answer } ) },
-    render: function() {
+    handleShowComments() {  this.setState( { show_comments: !this.state.show_comments } )  },
+    render() {
         if(this.props.current_user != null && this.props.current_user.id == this.props.post.user.id)
             var delete_button = <div className="delete-post" onClick={this.handleDelete}>x</div>;
         return (
             <div className="post">
+                { this.state.comments.length > 0 ? <div className = "show-comments" onClick = { this.handleShowComments } > { this.state.show_comments ? '-' : '+' } </div> : '' }
                 <div className="author-post"> {this.props.post.user.name} </div>
                 { delete_button }
                 <br />
                 { this.props.post.post.content }
                 { this.props.current_user  != 'guest' ? <div className="answer" onClick = { this.handleAnswer }> { this.state.answer ? 'Hide' : 'Answer' } </div> : '' }
                 { this.state.answer ? <SendComment parrent_post = { this.props.post.post }  callbackAnswer = { this.handleAnswer } /> : '' }
-                <Comments key = { 'post comments' + this.props.post.post.id } comments = { this.state.comments } current_user = { this.props.current_user } />
+                { this.state.show_comments ? <Comments key = { 'post comments' + this.props.post.post.id } comments = { this.state.comments } current_user = { this.props.current_user } />
+                    : '' }
             </div>
         );
     },

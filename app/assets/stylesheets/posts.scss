@@ -31,6 +31,14 @@
   }
 }
 
+.show-comments {
+  font-family: Courier New, monospace;
+  display: inline-block;
+  color: #00e2ff;
+  border: 1px solid #00e2ff;
+  cursor: pointer;
+}
+
 .comment {
   padding: 10px 10px 10px 25px;
   border: 1px solid grey;
