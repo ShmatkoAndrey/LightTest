@@ -5,7 +5,7 @@ class Post < ApplicationRecord
   belongs_to :user
   has_many :comments, dependent: :destroy
 
-  def find_comments # проходит по всем комментам поста и рекурсивно возвращает массив json деревьев комментов
+  def find_comments # проходит по всем комментам поста и рекурсивно возвращает массив json дерева комментов
     @comments = []
     self.comments.each do |comment|
       @comments << next_comment(comment)

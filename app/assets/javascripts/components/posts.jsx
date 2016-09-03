@@ -3,7 +3,7 @@ var PostList = React.createClass({
         this.webSocket();
         return {posts: [], inProgressLoad: false};
     },
-    componentDidMount: function() {
+    componentDidMount: function() { // После установки загружает перве посты, далее подключает сокеты и ловит с них
         $.ajax({
             url: '/posts', type: 'GET', async: false,
             success: function(data) {
@@ -25,7 +25,7 @@ var PostList = React.createClass({
                 this.setState({ posts: posts })
         }.bind(this));
     },
-    scrollPosts: function() {
+    scrollPosts: function() { // infinity scroll по положению скрола относительно конца
         if(($(this.refs.posts_box).scrollTop() >= $(this.refs.posts_box)[0].scrollHeight - $(this.refs.posts_box)[0].clientHeight - 200) && !this.state.inProgressLoad) {
             $.ajax({
                 url: '/posts', dataType: 'json', type: 'GET',
@@ -59,7 +59,7 @@ var Post = React.createClass({
         this.webSocket();
         return { comments: this.props.post.comments || [], answer: false, show_comments: true }
     },
-    addComment(arr, comment, add) {
+    addComment(arr, comment, add) { // Рекурсивно ищет коммент и добавляет/удаляет (параметр add ) полученный из сокетов
         if(add && comment.post_id != null) return arr.concat([comment]);
         else if (!add && comment.post_id != null) { arr.forEach(function(e, i) { // Удаление, если коммент именно к посту
             if(e.id == comment.id) { arr.splice(i, 1); } });
@@ -105,8 +105,7 @@ var Post = React.createClass({
                 { this.props.post.post.content }
                 { this.props.current_user  != 'guest' ? <div className="answer" onClick = { this.handleAnswer }> { this.state.answer ? 'Hide' : 'Answer' } </div> : '' }
                 { this.state.answer ? <SendComment parrent_post = { this.props.post.post }  callbackAnswer = { this.handleAnswer } /> : '' }
-                { this.state.show_comments ? <Comments key = { 'post comments' + this.props.post.post.id } comments = { this.state.comments } current_user = { this.props.current_user } />
-                    : '' }
+                { this.state.show_comments ? <Comments key = { 'post comments' + this.props.post.post.id } comments = { this.state.comments } current_user = { this.props.current_user } /> : '' }
             </div>
         );
     },

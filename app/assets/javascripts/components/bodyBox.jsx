@@ -1,6 +1,6 @@
 var BodyBox = new React.createClass({
     getInitialState() { return { current_user: null } },
-    componentWillMount() {
+    componentWillMount() { // После загрузки компонента получает юзера
         $.ajax({
             url: "/sessions/current_user", method: "GET", async: false,
             success: function(data) {

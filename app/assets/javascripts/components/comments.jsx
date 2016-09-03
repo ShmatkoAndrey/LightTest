@@ -1,6 +1,6 @@
 var Comments = React.createClass({
     render() {
-        var commentsNode = this.props.comments.map(function(comment) {
+        var commentsNode = this.props.comments.map(function(comment) { // Проходит по постам и если есть подкомменты - рекурсивно вызывает Comments
             if(comment.comments) {
                 return (
                     <div >

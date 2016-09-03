@@ -7,13 +7,13 @@ class SessionsController < ApplicationController
       @user = User.find_for_auth(params[:provider], params[:social])
       session[:user_id] = @user.id
       token = Random.new_seed
-      cookies[:auth_token] = {value: token, expires: 1.hour.from_now}
+      cookies[:auth_token] = {value: token, expires: 10.hour.from_now}
       @user.update(auth_token: token)
       render json: {current_user: @user}
     end
   end
 
-  def destroy # $.ajax({ url: "/sessions/destroy", method: "DELETE" });
+  def destroy
     session[:user_id] = nil
     cookies[:auth_token] = nil
     render json: { current_user: nil }

@@ -26,7 +26,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 #---
 
-gem 'shmatgem'
+gem 'shmatgem' # Цветной вывод сообщенеий в консоль
 gem 'thin'
 gem 'bootstrap-sass'
 gem 'faker'

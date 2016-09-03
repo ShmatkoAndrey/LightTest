@@ -5,7 +5,7 @@ class CommentsController < ApplicationController
     if @comment.save
       cmnt = @comment.as_json
       cmnt['user'] = @comment.user.serialize
-      broadcast "/lighttest/post/#{ find_post(@comment) }/comments/create", { comment: cmnt }
+      broadcast "/lighttest/post/#{ find_post(@comment) }/comments/create", { comment: cmnt } # Отправляет на сокет сервер с id поста
       render json: { comment: @comment }
     else
       render json: { errors: @comment.errors.full_messages}
@@ -20,7 +20,7 @@ class CommentsController < ApplicationController
 
   private
 
-  def find_post(comment)
+  def find_post(comment) # Для нахождения id поста, поднимаясь из глубины дерева
     if comment.post_id
       comment.post_id
     else

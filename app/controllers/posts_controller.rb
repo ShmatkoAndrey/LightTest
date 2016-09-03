@@ -2,9 +2,9 @@ class PostsController < ApplicationController
 
   def index
     cnt_load = 5
-    if params[:start]
+    if params[:start] #  получает следующие cnt_load постов после прислоанного id
       @posts = Post.preload(:user).order(created_at: :desc).where('id < ?', params[:start]).limit(cnt_load).map {|post| {post: post, comments: post.find_comments, user: post.user.serialize}}
-    else
+    else # первая загрузка постов
       @posts = Post.preload(:user).order(created_at: :desc).limit(cnt_load).map {|post| {post: post, comments: post.find_comments, user: post.user.serialize}}
     end
     render json: {posts: @posts}
@@ -13,7 +13,7 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.build(post_params) unless current_user.nil?
     if @post.save
-      broadcast '/lighttest/posts/create', { post: @post, comments: @post.find_comments, user: @post.user.serialize }
+      broadcast '/lighttest/posts/create', { post: @post, comments: @post.find_comments, user: @post.user.serialize } # отправка на сокет сервер
       render json: { post: @post, comments: [], user: @post.user.serialize }
     else
       render json: { errors: @post.errors.full_messages}

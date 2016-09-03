@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def broadcast(channel, hash)
+  def broadcast(channel, hash) # Подключение сокет сервера
     message = {:channel => channel, :data => hash, :ext => {:auth_token => 'seed'}}
     uri = URI.parse('http://socketmiamitalks.herokuapp.com/faye')
     Net::HTTP.post_form(uri, :message => message.to_json)
