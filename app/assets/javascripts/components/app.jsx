@@ -1,7 +1,12 @@
 var App = React.createClass({
+    handleLogOut() {
+        $.ajax({ url: "/sessions/destroy", method: "DELETE" });
+        this.props.changeGuest('guest')
+    },
     render() {
         return (
             <div id="messages">
+                { this.props.current_user != 'guest' ? <div className="btn btn-danger" onClick = { this.handleLogOut } >Logout</div>: '' }
                 { this.props.current_user != 'guest' ? <SendPost /> : <Login changeCurrentUser = { (current_user) => { this.props.changeGuest(current_user) } } /> }
                 <PostList current_user = { this.props.current_user } />
             </div>
@@ -28,7 +33,7 @@ var SendPost = React.createClass({
        return (
             <div id="send-post">
                 <form className="postForm" onSubmit = { this.handleSubmit } >
-                   <textarea  placeholder = "Content" rows="6"
+                   <textarea  placeholder = "Content" rows="6"  maxLength = "10000"
                              value = { this.state.content } onChange = { (e) => { this.setState({ content:  e.target.value }) } } />
                     <input id="submitPost" type="submit" value="Post" className="btn btn-default" />
                 </form>

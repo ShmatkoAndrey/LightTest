@@ -71,7 +71,7 @@ var SendComment = React.createClass({
         return (
             <div id="send-comment">
                 <form className="commentForm" onSubmit = { this.handleSubmit } >
-                   <textarea className="sendCommentArea"  placeholder = "Content" rows="3"
+                   <textarea className="sendCommentArea"  placeholder = "Content" rows="3" maxLength = "5000"
                               value = { this.state.content } onChange = { (e) => { this.setState({ content:  e.target.value }) } } />
                     <input className="submitComment" type="submit" value="Comment" className="btn btn-default" />
                 </form>
