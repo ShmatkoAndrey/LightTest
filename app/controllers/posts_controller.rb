@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
 
   def index
-    cnt_load = 10
+    cnt_load = 5
     if params[:start]
       @posts = Post.preload(:user).order(created_at: :desc).where('id < ?', params[:start]).limit(cnt_load).map {|post| {post: post, comments: post.find_comments, user: post.user.serialize}}
     else

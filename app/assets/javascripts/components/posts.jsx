@@ -57,21 +57,22 @@ var PostList = React.createClass({
 var Post = React.createClass({
     getInitialState() {
         this.webSocket();
-        return { comments: this.props.post.comments, answer: false }
+        return { comments: this.props.post.comments || [], answer: false }
     },
-    addComment(arr, comment) {
-        if(comment.post_id != null) return arr.concat([comment]);
+    addComment(arr, comment, add) {
+        if(add && comment.post_id != null) return arr.concat([comment]);
+        else if (!add && comment.post_id != null) { arr.forEach(function(e, i) { // Удаление, если коммент именно к посту
+            if(e.id == comment.id) { arr.splice(i, 1); } });
+            return arr;
+        }
         else {
             arr.forEach(function (e, i) {
                 if(e.id.toString() == comment.comment_id.toString()) {
-                    if(e.comments) {
-                        e.comments = e.comments.concat([comment]);
-                    }
+                    if(!add) { e.comments.forEach(function(e2, i2){ if(e2.id == comment.id) {e.comments.splice(i2, 1); } }) } // Удаление
+                    else if(e.comments) { e.comments = e.comments.concat([comment]); }
                     else e['comments'] = [comment];
                 }
-                else if (e.comments) {
-                    arr[find_n(arr, e.id)] = this.addComment(e.comments, comment);
-                }
+                else if (e.comments) { arr[find_n(arr, e.id)] = this.addComment(e.comments, comment, add); }
             }.bind(this));
             return arr;
         }
@@ -84,7 +85,10 @@ var Post = React.createClass({
     webSocket: function() {
         var faye = new Faye.Client('http://socketmiamitalks.herokuapp.com/faye');
         faye.subscribe("/lighttest/post/"+this.props.post.post.id+"/comments/create", function(data) {
-            this.setState({comments: this.addComment(this.state.comments, data.comment) });
+            this.setState({comments: this.addComment(this.state.comments, data.comment, true) });
+        }.bind(this));
+        faye.subscribe("/lighttest/post/"+this.props.post.post.id+"/comments/destroy", function(data) {
+            this.setState({comments: this.addComment(this.state.comments, data.comment, false) });
         }.bind(this));
     },
     handleAnswer() { this.setState( { answer: !this.state.answer } ) },

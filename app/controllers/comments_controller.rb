@@ -14,9 +14,7 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment = Comment.find(params[:id]).destroy
-    cmnt = @comment.as_json
-    cmnt['user'] = @comment.user.serialize
-    broadcast "/lighttest/#{ find_post(@comment) }/comments/destroy", { comment: cmnt }
+    broadcast "/lighttest/post/#{ find_post(@comment) }/comments/destroy", { comment: @comment }
     render json: { comment: @comment }
   end
 
