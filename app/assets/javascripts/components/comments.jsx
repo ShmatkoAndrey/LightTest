@@ -5,7 +5,7 @@ var Comments = React.createClass({
                 return (
                     <div >
                         <Comment key = { comment.id } comment = { comment } current_user = { this.props.current_user } />
-                        <Comments comments = { comment.comments } current_user = { this.props.current_user } />
+                        <Comments key = { 'comments' + comment.id } comments = { comment.comments } current_user = { this.props.current_user } />
                     </div>
                 )
             } else {
@@ -40,7 +40,7 @@ var Comment = React.createClass({
                 <div className="author-comment"> {comment.user.name} </div>
                 <br />
                 { comment.content }
-                <div className="answer" onClick = { this.handleAnswer }> { this.state.answer ? 'Hide' : 'Answer' } </div>
+                { this.props.current_user  != 'guest' ? <div className="answer" onClick = { this.handleAnswer }> { this.state.answer ? 'Hide' : 'Answer' } </div> : '' }
                 { this.state.answer ? <SendComment parrent_comment = { comment } callbackAnswer = { this.handleAnswer } /> : '' }
             </div>
         )

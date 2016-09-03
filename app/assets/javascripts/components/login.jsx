@@ -26,8 +26,10 @@ var Login = React.createClass({
     render() {
         return (
             <div id="login">
-                <div id = "fb-login" onClick = { this.FBlogin } ></div>
-                <div id = "guest-login" onClick = { () => { this.props.changeCurrentUser('guest') } } ></div>
+                { this.props.login_page ? '' : 'Для добавления и комментирования сообщений выполните вход' }
+                <br />
+                    <div id = "fb-login" onClick = { this.FBlogin } ></div>
+                { this.props.login_page ? <div id = "guest-login" onClick = { () => { this.props.changeCurrentUser('guest') } } ></div> : '' }
             </div>
         )
     }

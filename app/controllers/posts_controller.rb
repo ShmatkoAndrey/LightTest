@@ -14,7 +14,7 @@ class PostsController < ApplicationController
     @post = current_user.posts.build(post_params) unless current_user.nil?
     if @post.save
       broadcast '/lighttest/posts/create', { post: @post, comments: @post.find_comments, user: @post.user.serialize }
-      render json: { post: @post, comments: post.find_comments, user: @post.user.serialize }
+      render json: { post: @post, comments: [], user: @post.user.serialize }
     else
       render json: { errors: @post.errors.full_messages}
     end

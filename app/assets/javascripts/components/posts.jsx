@@ -101,9 +101,9 @@ var Post = React.createClass({
                 { delete_button }
                 <br />
                 { this.props.post.post.content }
-                <div className="answer" onClick = { this.handleAnswer }> { this.state.answer ? 'Hide' : 'Answer' } </div>
+                { this.props.current_user  != 'guest' ? <div className="answer" onClick = { this.handleAnswer }> { this.state.answer ? 'Hide' : 'Answer' } </div> : '' }
                 { this.state.answer ? <SendComment parrent_post = { this.props.post.post }  callbackAnswer = { this.handleAnswer } /> : '' }
-                <Comments comments = { this.state.comments } current_user = { this.props.current_user } />
+                <Comments key = { 'post comments' + this.props.post.post.id } comments = { this.state.comments } current_user = { this.props.current_user } />
             </div>
         );
     },
