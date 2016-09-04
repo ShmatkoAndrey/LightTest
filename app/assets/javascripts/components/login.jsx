@@ -1,7 +1,7 @@
 var Login = React.createClass({
     FBlogin() {
         FB.init({
-            appId:  '1997533793805209', //jsx не может в jsx.rb, поэтому так. p.s. безопасность со  стороны fb разрешает так делать.
+            appId:  '1192936074102605', //'1997533793805209', //jsx не может в jsx.rb, поэтому так. p.s. безопасность со  стороны fb разрешает так делать.
             version: 'v2.7'
         });
         FB.getLoginStatus(function (response) {
