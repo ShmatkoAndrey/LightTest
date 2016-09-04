@@ -9,6 +9,7 @@ var BodyBox = new React.createClass({
         });
     },
     setCurrentUser: function(current_user) { this.setState({ current_user: current_user }) },
+    componentDidUpdate(){ updatePostsSize(); },
     render() {
         return (
             <div id = "body-box">

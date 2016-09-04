@@ -8,6 +8,7 @@ var PostList = React.createClass({
             url: '/posts', type: 'GET', async: false,
             success: function(data) {
                 this.setState({posts: data.posts});
+                updatePostsSize();
             }.bind(this)
         });
     },

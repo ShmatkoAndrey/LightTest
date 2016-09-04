@@ -1,5 +1,6 @@
 #fb-login {
   display: inline-block;
+  cursor: pointer;
 
   background-image: image-url('social/fb.png');
   width: 128px;
@@ -11,6 +12,7 @@
 
 #guest-login {
   display: inline-block;
+  cursor: pointer;
 
   background-image: image-url('social/guest.png');
   width: 128px;
