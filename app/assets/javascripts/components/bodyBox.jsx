@@ -17,7 +17,7 @@ var BodyBox = new React.createClass({
                     <div><div className="col-md-1"></div><div className="col-md-10">
                         <App current_user = { this.state.current_user } changeGuest = { this.setCurrentUser }  />
                     </div></div> :
-                    <Login changeCurrentUser = { this.setCurrentUser } login_page = { true } /> }
+                    <div id = "main-login"> <Login changeCurrentUser = { this.setCurrentUser } login_page = { true } /> </div> }
             </div>
         )
     }

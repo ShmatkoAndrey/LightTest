@@ -1,25 +1,32 @@
-#fb-login {
+.btn-login {
   display: inline-block;
   cursor: pointer;
-
-  background-image: image-url('social/fb.png');
   width: 128px;
   height: 128px;
   background-position:center center;
   background-repeat:no-repeat;
   background-size:cover;
+}
+
+#fb-login {
+  background-image: image-url('social/fb.png');
+  margin-left: 1px;
 }
 
 #guest-login {
-  display: inline-block;
-  cursor: pointer;
-
   background-image: image-url('social/guest.png');
-  width: 128px;
-  height: 128px;
   border-radius: 22px;
-  background-position:center center;
-  background-repeat:no-repeat;
-  background-size:cover;
 }
 
+#main-login {
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:280px;
+  height:185px;
+  margin-left:-135px;
+  margin-top:-90px;
+  border:1px solid grey;
+  padding:10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}

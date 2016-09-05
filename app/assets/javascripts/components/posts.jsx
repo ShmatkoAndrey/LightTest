@@ -96,7 +96,8 @@ var Post = React.createClass({
     handleShowComments() {  this.setState( { show_comments: !this.state.show_comments } )  },
     render() {
         if(this.props.current_user != null && this.props.current_user.id == this.props.post.user.id)
-            var delete_button = <div className="delete-post" onClick={this.handleDelete}>x</div>;
+            var delete_button = <div className="delete-post" onClick={this.handleDelete}>✕</div>;
+
         return (
             <div className="post">
                 { this.state.comments.length > 0 ? <div className = "show-comments" onClick = { this.handleShowComments } > { this.state.show_comments ? '-' : '+' } </div> : '' }

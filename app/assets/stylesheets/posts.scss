@@ -28,6 +28,7 @@
     top: -25px;
     right: -20px;
     cursor: pointer;
+    font-size: 20px;
   }
 }
 
@@ -43,6 +44,7 @@
   padding: 10px 10px 10px 25px;
   border: 1px solid grey;
   margin: 5px;
+  box-shadow: 0 0 2px rgba(0,0,0,0.5);
   .author-comment {
     display: inline-block;
     color: #115524
@@ -50,11 +52,8 @@
   .delete-comment {
     display: inline-block;
     color: #730E15;
-    //float: right;
-    //position: relative;
-    top: -25px;
-    right: -20px;
     cursor: pointer;
+    font-size: 20px;
   }
 }
 

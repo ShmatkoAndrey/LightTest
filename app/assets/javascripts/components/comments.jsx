@@ -33,7 +33,7 @@ var Comment = React.createClass({
     render() {
         var comment = this.props.comment;
         if(this.props.current_user != null && this.props.current_user.id == comment.user.id)
-            var delete_button = <div className="delete-comment" onClick={this.handleDelete}>x</div>;
+            var delete_button = <div className="delete-comment" onClick={this.handleDelete}>✕</div>;
         return (
             <div className = "comment">
                 { delete_button }

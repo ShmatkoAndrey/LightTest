@@ -3,7 +3,7 @@
 @posts = 30.times.collect {|i| Post.create( content: Faker::Hipster.paragraph, user_id: @users.sample.id )}
 
 @comments = []
-150.times do |i|
+100.times do |i|
   @comment = Comment.new( content: Faker::Hipster.paragraph, user_id: @users.sample.id )
   if i % 4 == 0 || i < 21
     @comment.post_id = @posts.sample.id
