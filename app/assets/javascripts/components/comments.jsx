@@ -34,10 +34,12 @@ var Comment = React.createClass({
         var comment = this.props.comment;
         if(this.props.current_user != null && this.props.current_user.id == comment.user.id)
             var delete_button = <div className="delete-comment" onClick={this.handleDelete}>✕</div>;
+        var date = new Date(comment.created_at);
         return (
             <div className = "comment">
                 { delete_button }
                 <div className="author-comment"> {comment.user.name} </div>
+                { '( ' + date.toDateString() + ' ' + date.toLocaleTimeString() + ' )' }
                 <br />
                 { comment.content }
                 { this.props.current_user  != 'guest' ? <div className="answer" onClick = { this.handleAnswer }> { this.state.answer ? 'Hide' : 'Answer' } </div> : '' }

@@ -97,11 +97,12 @@ var Post = React.createClass({
     render() {
         if(this.props.current_user != null && this.props.current_user.id == this.props.post.user.id)
             var delete_button = <div className="delete-post" onClick={this.handleDelete}>✕</div>;
-
+        var date = new Date(this.props.post.post.created_at);
         return (
             <div className="post">
                 { this.state.comments.length > 0 ? <div className = "show-comments" onClick = { this.handleShowComments } > { this.state.show_comments ? '-' : '+' } </div> : '' }
                 <div className="author-post"> {this.props.post.user.name} </div>
+                { '( ' + date.toDateString() + ' ' + date.toLocaleTimeString() + ' )' }
                 { delete_button }
                 <br />
                 { this.props.post.post.content }
