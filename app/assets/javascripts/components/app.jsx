@@ -6,7 +6,8 @@ var App = React.createClass({
     render() {
         return (
             <div id="messages">
-                { this.props.current_user != 'guest' ? <div id = "logout" className="btn btn-danger" onClick = { this.handleLogOut } >Logout</div>: '' }
+                { this.props.current_user != 'guest' ? <div id="username"><span className = "icon-user" />{ this.props.current_user.name }</div>: '' }
+                { this.props.current_user != 'guest' ? <div id = "logout" className="btn btn-danger pull-right" onClick = { this.handleLogOut } ><span className = "icon-exit" /> Logout</div>: '' }
                 <div id = "send-post-login">
                     { this.props.current_user != 'guest' ? <SendPost /> : <Login changeCurrentUser = { (current_user) => { this.props.changeGuest(current_user) } } /> }
                 </div>
@@ -37,7 +38,7 @@ var SendPost = React.createClass({
                 <form className="postForm" onSubmit = { this.handleSubmit } >
                    <textarea  placeholder = "Content" rows="5"  maxLength = "10000"
                              value = { this.state.content } onChange = { (e) => { this.setState({ content:  e.target.value }) } } />
-                    <input id="submitPost" type="submit" value="Post" className="btn btn-default" />
+                    <button id="submitPost" type="submit" className="btn btn-default" > <span className = "icon-post" /> Post </button>
                 </form>
             </div>
        )

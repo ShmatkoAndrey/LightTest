@@ -39,10 +39,11 @@ var Comment = React.createClass({
             <div className = "comment">
                 { delete_button }
                 <div className="author-comment"> {comment.user.name} </div>
-                { '( ' + date.toDateString() + ' ' + date.toLocaleTimeString() + ' )' }
+                <span className="icon-time" />
+                { date.toDateString() + ' ' + date.toLocaleTimeString() }
                 <br />
                 { comment.content }
-                { this.props.current_user  != 'guest' ? <div className="answer" onClick = { this.handleAnswer }> { this.state.answer ? 'Hide' : 'Answer' } </div> : '' }
+                { this.props.current_user  != 'guest' ? <div className="answer" onClick = { this.handleAnswer }>  <span className = "icon-answer" /> { this.state.answer ? 'Hide' : 'Answer' } </div> : '' }
                 { this.state.answer ? <SendComment parrent_comment = { comment } callbackAnswer = { this.handleAnswer } /> : '' }
             </div>
         )
@@ -75,7 +76,7 @@ var SendComment = React.createClass({
                 <form className="commentForm" onSubmit = { this.handleSubmit } >
                    <textarea className="sendCommentArea"  placeholder = "Content" rows="3" maxLength = "5000"
                               value = { this.state.content } onChange = { (e) => { this.setState({ content:  e.target.value }) } } />
-                    <input className="submitComment" type="submit" value="Comment" className="btn btn-default" />
+                    <button className="submitComment" type="submit" className="btn btn-default" > <span className = "icon-post" /> Comment </button>
                 </form>
             </div>
         )

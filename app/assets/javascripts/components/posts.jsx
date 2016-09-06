@@ -102,11 +102,12 @@ var Post = React.createClass({
             <div className="post">
                 { this.state.comments.length > 0 ? <div className = "show-comments" onClick = { this.handleShowComments } > { this.state.show_comments ? '-' : '+' } </div> : '' }
                 <div className="author-post"> {this.props.post.user.name} </div>
-                { '( ' + date.toDateString() + ' ' + date.toLocaleTimeString() + ' )' }
+                <span className="icon-time" />
+                { date.toDateString() + ' ' + date.toLocaleTimeString() }
                 { delete_button }
                 <br />
                 { this.props.post.post.content }
-                { this.props.current_user  != 'guest' ? <div className="answer" onClick = { this.handleAnswer }> { this.state.answer ? 'Hide' : 'Answer' } </div> : '' }
+                { this.props.current_user  != 'guest' ? <div className="answer" onClick = { this.handleAnswer }> <span className="icon-answer" />{ this.state.answer ? 'Hide' : 'Answer' } </div> : '' }
                 { this.state.answer ? <SendComment parrent_post = { this.props.post.post }  callbackAnswer = { this.handleAnswer } /> : '' }
                 { this.state.show_comments ? <Comments key = { 'post comments' + this.props.post.post.id } comments = { this.state.comments } current_user = { this.props.current_user } /> : '' }
             </div>

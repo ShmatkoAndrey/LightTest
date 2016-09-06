@@ -16,6 +16,7 @@ function updatePostsSize() { // Растягивает блок posts до ко�
     }
     else {
         h += $('#login').height();
+        h += 10;
     }
     $('#posts').css('height', $(window).height() - h);
 }

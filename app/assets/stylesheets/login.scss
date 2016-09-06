@@ -9,24 +9,78 @@
 }
 
 #fb-login {
-  background-image: image-url('social/fb.png');
   margin-left: 1px;
+  margin-right: 10px;
+  background-image: image-url('social/fb.png');
+}
+
+#fb-login:hover:before{
+  width: 129px;
+  height: 129px;
+  color: #304F8F;
+  font-weight: 900;
+  padding-top: 40px;
+  padding-left: 5px;
+  text-align: center;
+  position: absolute;
+  border-radius: 19px;
+  word-wrap: break-word;
+  vertical-align: middle;
+  display: inline-block;
+  content: 'Login with facebook';
+  background-color: rgba(255, 250, 250, 0.7);
 }
 
 #guest-login {
-  background-image: image-url('social/guest.png');
   border-radius: 22px;
+  background-image: image-url('social/guest.png');
+}
+
+#guest-login:hover:before{
+  width: 129px;
+  height: 129px;
+  color: #304F8F;
+  font-weight: 900;
+  padding-top: 40px;
+  padding-left: 5px;
+  padding-right: 5px;
+  text-align: center;
+  position: absolute;
+  border-radius: 19px;
+  word-wrap: break-word;
+  vertical-align: middle;
+  display: inline-block;
+  content: 'Login like a guest';
+  background-color: rgba(255, 250, 250, 0.7);
 }
 
 #main-login {
-  position:absolute;
   top:50%;
   left:50%;
-  width:280px;
+  width: 290px;
   height:185px;
-  margin-left:-135px;
-  margin-top:-90px;
-  border:1px solid grey;
   padding:10px;
+  margin-top:-90px;
+  margin-left:-135px;
+  position:absolute;
+  border:1px solid grey;
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  >h4 {
+    width: 550px;
+    right: -140px;
+    bottom: 200px;
+    position: absolute;
+    color: rgb(87, 87, 87);
+  }
+}
+
+#login {
+  >h4 {
+    color: rgb(100, 100, 100) !important
+  }
+}
+
+#logout {
+  background-color: rgba(207, 36, 40, 0.48);
+  border: 1px solid rgba(207, 36, 40, 0.48);
 }

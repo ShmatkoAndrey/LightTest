@@ -8,7 +8,7 @@ var Login = React.createClass({
             if (response.status === 'connected') login();
             else FB.login(function () { login(); }, { scope: 'public_profile' });
         });
-        this_ = this; // Через .bind(this) не вариант =\
+        this_ = this;
         function login() {
             FB.api('/me', {fields: 'name'}, function (response) {
                 $.ajax({
@@ -26,9 +26,8 @@ var Login = React.createClass({
     render() {
         return (
             <div id="login">
-                { this.props.login_page ? '' : 'Для добавления и комментирования сообщений выполните вход' }
-                <br />
-                    <div id = "fb-login" className="btn-login" onClick = { this.FBlogin } ></div>
+                { this.props.login_page ? <br /> : <h4>Для добавления и комментирования сообщений выполните вход</h4> }
+                <div id = "fb-login" className="btn-login" onClick = { this.FBlogin } ></div>
                 { this.props.login_page ? <div id = "guest-login" className="btn-login" onClick = { () => { this.props.changeCurrentUser('guest') } } ></div> : '' }
             </div>
         )
